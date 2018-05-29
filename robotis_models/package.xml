@@ -1,0 +1,19 @@
+<package>
+
+  <name>robotis_models</name>
+  <description>
+    Robotis package for robotis robot models
+  </description>
+  <version>0.0.1</version>
+  <author>Robotis Robot Designers</author>
+  <author email="yoshimaru@robotis.com">Yoshimaru Tanaka</author>
+  <maintainer email="y-tanaka@jsk.imi.i.u-tokyo.ac.jp">Yoshimaru Tanaka</maintainer>
+  <license>Apache 2.0</license>
+  <url></url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+  </export>
+
+</package>
