@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rtmros_robotis</name>
+  <version>0.0.1</version>
+  <description>
+    RTM-ROS integration packages for the Robotis robot platforms (meta package).
+    This meta package provides model, launch, script files and etc.
+  </description>
+  <license>Apache 2.0</license>
+  <author email="yoshimaru@robotis.com">Yoshimaru Tanaka</author>
+  <maintainer email="y-tanaka@jsk.imi.i.u-tokyo.ac.jp">Yoshimaru Tanaka</maintainer>
+  <url type="website"></url>
+  <url type="emanual"></url>
+  <url type="repository">https://github.com/ROBOTIS-JAPAN-GIT/rtmros_robotis</url>
+  <url type="bugtracker">https://github.com/ROBOTIS-JAPAN-GIT/rtmros_robotis/issues</url>
+  <buildtool_depend>catkin</buildtool_depend>
+  <!-- <exec_depend>op3_description</exec_depend> -->
+  <!-- <exec_depend>op3_gazebo</exec_depend> -->
+  <export><metapackage/></export>
+</package>
