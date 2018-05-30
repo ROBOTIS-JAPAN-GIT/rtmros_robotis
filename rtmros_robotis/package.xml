@@ -14,6 +14,8 @@
   <url type="repository">https://github.com/ROBOTIS-JAPAN-GIT/rtmros_robotis</url>
   <url type="bugtracker">https://github.com/ROBOTIS-JAPAN-GIT/rtmros_robotis/issues</url>
   <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>op3_description</exec_depend>
+  <exec_depend>robotis_models</exec_depend>
   <!-- <exec_depend>op3_description</exec_depend> -->
   <!-- <exec_depend>op3_gazebo</exec_depend> -->
   <export><metapackage/></export>
