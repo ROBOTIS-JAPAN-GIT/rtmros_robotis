@@ -1,0 +1,18 @@
+macro(compile_model_for_robotis_robots _robot_wrl_file _robotis_robot_name)
+  if(EXISTS ${_robot_wrl_file})
+    compile_robotis_model(
+      ${_robot_wrl_file}
+      ${_robotis_robot_name}
+      ${ARGN})
+  else()
+    message(STATUS "\n\n\n\n ${_robot_wrl_file} is not found..\n\n\n\n")
+  else()
+  endmacro()
+
+macro(compile_robotis_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
+  compile_model_for_closed_robots(
+    ${robotis_models_MODEL_DIR}/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
+    ${_OpenHRP2_robot_name}
+    ${ARGN})
+endmacro()
+
