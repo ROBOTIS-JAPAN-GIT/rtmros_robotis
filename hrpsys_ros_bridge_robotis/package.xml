@@ -45,7 +45,7 @@
   <run_depend>control_msgs</run_depend>
   <!-- <run_depend>hrp2_models</run_depend> -->
   <!-- <run_depend>jsk_models</run_depend> -->
-  <test_depend>openhrp3</test_depend>
+  <!-- <test_depend>openhrp3</test_depend> -->
   <run_depend>collada_urdf_jsk_patch</run_depend>
   <export>
     <pr2eus robot-name="hrp2jsk" interface-file="${prefix}/euslisp/hrp2jsk-interface.l" />

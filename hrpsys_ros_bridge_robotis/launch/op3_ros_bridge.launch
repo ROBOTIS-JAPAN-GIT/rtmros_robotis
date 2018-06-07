@@ -1,0 +1,46 @@
+<launch>
+  <arg name="RUN_RVIZ" default="true" />
+  <arg name="SIMULATOR_NAME" default="OP3(Robot)0" />
+  <!-- unstable means minimum rtc set for walking demo -->
+  <arg name="USE_UNSTABLE_RTC" default="true"/>
+  <!-- following rtc is used for test/hrpsys-samples, mainly full euslisp test -->
+  <arg name="USE_EMERGENCYSTOPPER" default="false" />
+  <arg name="USE_REFERENCEFORCEUPDATER" default="false" />
+  <arg name="USE_OBJECTCONTACTTURNAROUNDDETECTOR" default="false" />
+
+  <rosparam command="load"
+            file="$(find hrpsys_ros_bridge_robotis)/models/OP3_controller_config.yaml" />
+
+  <arg name="corbaport" default="15005" />
+  <arg name="nameserver" default="localhost" />
+  <include file="$(find hrpsys_ros_bridge)/launch/hrpsys_ros_bridge.launch">
+    <arg name="SIMULATOR_NAME" value="$(arg SIMULATOR_NAME)" />
+    <arg name="MODEL_FILE" value="$(find robotis_models)/OP3/OP3main.wrl" />
+    <arg name="COLLADA_FILE" value="$(find hrpsys_ros_bridge_robotis)/models/OP3.dae" />
+    <arg name="CONF_FILE" value="$(find hrpsys_ros_bridge_robotis)/models/OP3.conf" />
+    <arg name="corbaport" default="$(arg corbaport)" />
+    <arg name="nameserver" default="$(arg nameserver)" />
+    <!-- BEGIN: unstable : maintained-->
+    <arg name="USE_WALKING" default="true" if="$(arg USE_UNSTABLE_RTC)"/>
+    <arg name="USE_IMPEDANCECONTROLLER" default="true" if="$(arg USE_UNSTABLE_RTC)" />
+
+    <!-- END: unstable : maintained -->
+    <!-- BEGIN: development -->
+    <arg name="USE_EMERGENCYSTOPPER" default="$(arg USE_EMERGENCYSTOPPER)" />
+    <arg name="USE_REFERENCEFORCEUPDATER" default="$(arg USE_REFERENCEFORCEUPDATER)" />
+    <arg name="USE_OBJECTCONTACTTURNAROUNDDETECTOR" default="$(arg USE_OBJECTCONTACTTURNAROUNDDETECTOR)" />
+    <!-- END: development -->
+    <arg name="ROBOT_TYPE" default="op3" if="$(arg USE_UNSTABLE_RTC)" />
+    <arg name="USE_ROBOT_TYPE_SETTING" default="true" if="$(arg USE_UNSTABLE_RTC)" />
+    <arg name="BASE_LINK" default="WAIST_LINK0" />
+
+
+  </include>
+
+  <group if="$(arg RUN_RVIZ)" >
+    <node name="op3_rviz" pkg="rviz" type="rviz" respawn="true"
+          args="-sync -d $(find hrpsys_ros_bridge_robotis)/launch/op3.rviz" />
+  </group>
+</launch>
+
+
