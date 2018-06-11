@@ -6,7 +6,7 @@
    <property name="totalTime" value="2000000.0"/>
    <property name="method" value="EULER"/>
   </item>
-  <item class="com.generalrobotix.ui.item.GrxModelItem" name="body_link" url="/home/robotis/op3_simtrans_dae/op3.wrl">
+  <item class="com.generalrobotix.ui.item.GrxModelItem" name="body_link" url="/home/robotis/op3_simtrans_dae/OP3main.wrl">
    <property name="WAIST.translation" value="0.0 0.0 0.0"/>
    <property name="WAIST.rotation" value="0 1 0 0"/>
   </item>
