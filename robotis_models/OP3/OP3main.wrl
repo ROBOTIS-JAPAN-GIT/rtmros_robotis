@@ -128,7 +128,7 @@ DEF body_link Humanoid {
   humanoidBody [
     DEF body_link Joint {
       jointType "free"
-      translation 0.0 0.0 0.25
+      translation 0.0 0.0 0.25 # height from ground to robot origin (tmp value)
       rotation 0 1 0 0
       children [
         DEF body_link Segment {
