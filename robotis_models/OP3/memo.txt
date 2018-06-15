@@ -1,0 +1,1 @@
+OP3 VRML models converted from the URDF including the STL files.
