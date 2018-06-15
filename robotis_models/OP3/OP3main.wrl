@@ -1,0 +1,919 @@
+#VRML V2.0 utf8
+
+PROTO Joint [
+  exposedField     SFVec3f      center              0 0 0
+  exposedField     MFNode       children            []
+  exposedField     MFFloat      llimit              []
+  exposedField     MFFloat      lvlimit             []
+  exposedField     SFRotation   limitOrientation    0 0 1 0
+  exposedField     SFString     name                ""
+  exposedField     SFRotation   rotation            0 0 1 0
+  exposedField     SFVec3f      scale               1 1 1
+  exposedField     SFRotation   scaleOrientation    0 0 1 0
+  exposedField     MFFloat      stiffness           [ 0 0 0 ]
+  exposedField     SFVec3f      translation         0 0 0
+  exposedField     MFFloat      ulimit              []
+  exposedField     MFFloat      uvlimit             []
+  exposedField     MFFloat      climit              []
+  exposedField     SFString     jointType           ""
+  exposedField     SFInt32      jointId             -1
+  exposedField     SFVec3f      jointAxis           0 0 1
+
+  exposedField     SFFloat      gearRatio           1
+  exposedField     SFFloat      rotorInertia        0
+  exposedField     SFFloat      rotorResistor       0
+  exposedField     SFFloat      torqueConst         1
+  exposedField     SFFloat      encoderPulse        1
+]
+{
+  Transform {
+    center           IS center
+    children         IS children
+    rotation         IS rotation
+    scale            IS scale
+    scaleOrientation IS scaleOrientation
+    translation      IS translation
+  }
+}
+
+PROTO Segment [
+  field           SFVec3f     bboxCenter        0 0 0
+  field           SFVec3f     bboxSize          -1 -1 -1
+  exposedField    SFVec3f     centerOfMass      0 0 0
+  exposedField    MFNode      children          [ ]
+  exposedField    SFNode      coord             NULL
+  exposedField    MFNode      displacers        [ ]
+  exposedField    SFFloat     mass              0
+  exposedField    MFFloat     momentsOfInertia  [ 0 0 0 0 0 0 0 0 0 ]
+  exposedField    SFString    name              ""
+  eventIn         MFNode      addChildren
+  eventIn         MFNode      removeChildren
+]
+{
+  Group {
+    addChildren    IS addChildren
+    bboxCenter     IS bboxCenter
+    bboxSize       IS bboxSize
+    children       IS children
+    removeChildren IS removeChildren
+  }
+}
+
+PROTO Surface [
+ field   SFVec3f bboxCenter 0 0 0
+ field   SFVec3f bboxSize   -1 -1 -1
+ field   MFNode  visual     [ ]
+ field   MFNode  collision  [ ]
+ eventIn MFNode  addChildren
+ eventIn MFNode  removeChildren
+]
+{
+  Group {
+    addChildren    IS addChildren
+    bboxCenter     IS bboxCenter
+    bboxSize       IS bboxSize
+    children       IS visual
+    removeChildren IS removeChildren
+  }
+}
+
+PROTO Humanoid [
+  field           SFVec3f    bboxCenter            0 0 0
+  field           SFVec3f    bboxSize              -1 -1 -1
+  exposedField    SFVec3f    center                0 0 0
+  exposedField    MFNode     humanoidBody          [ ]
+  exposedField    MFString   info                  [ ]
+  exposedField    MFNode     joints                [ ]
+  exposedField    SFString   name                  ""
+  exposedField    SFRotation rotation              0 0 1 0
+  exposedField    SFVec3f    scale                 1 1 1
+  exposedField    SFRotation scaleOrientation      0 0 1 0
+  exposedField    MFNode     segments              [ ]
+  exposedField    MFNode     sites                 [ ]
+  exposedField    SFVec3f    translation           0 0 0
+  exposedField    SFString   version               "1.1"
+  exposedField    MFNode     viewpoints            [ ]
+]
+{
+  Transform {
+    bboxCenter       IS bboxCenter
+    bboxSize         IS bboxSize
+    center           IS center
+    rotation         IS rotation
+    scale            IS scale
+    scaleOrientation IS scaleOrientation
+    translation      IS translation
+    children [
+      Group {
+        children IS viewpoints
+      }
+      Group { # Added
+        children IS humanoidBody
+      }
+    ]
+  }
+}
+
+PROTO ExtraJoint [
+  exposedField SFString link1Name ""
+  exposedField SFString link2Name ""
+  exposedField SFVec3f  link1LocalPos 0 0 0
+  exposedField SFVec3f  link2LocalPos 0 0 0
+  exposedField SFString jointType "xyz"
+  exposedField SFVec3f  jointAxis 1 0 0
+]
+{
+}
+
+PROTO Gyro [ # Added from JAXONmain.wrl
+  exposedField SFVec3f    maxAngularVelocity -1 -1 -1
+  exposedField SFVec3f    translation        0 0 0
+  exposedField SFRotation rotation           0 0 1 0
+  exposedField SFInt32    sensorId           -1
+]
+{
+  Transform {
+    translation IS translation
+    rotation    IS rotation
+  }
+}
+
+PROTO AccelerationSensor [ # Added from JAXONmain.wrl
+  exposedField SFVec3f    maxAcceleration -1 -1 -1
+  exposedField SFVec3f    translation     0 0 0
+  exposedField SFRotation rotation        0 0 1 0
+  exposedField SFInt32    sensorId        -1
+]
+{
+  Transform {
+    translation IS translation
+    rotation    IS rotation
+  }
+}
+
+DEF OP3 Humanoid {
+  humanoidBody [
+    DEF body_link Joint { # replace with WAIST...?
+      jointType "free"
+      translation 0.0 0.0 0.025 # height from the ground (tmp value)
+      rotation 0 1 0 0
+      children [
+        DEF body_link Segment {
+          mass 1.34928
+          centerOfMass -0.01501 0.00013 0.06582
+          momentsOfInertia [0.00340499 5.72e-06 -4.256e-05 5.72e-06 0.00296939 -5.9e-07 -4.256e-05 -5.9e-07 0.00317331]
+          children [
+            Transform {
+              scale 0.001 0.001 0.001
+              translation 0.0 0.0 0.0
+              rotation 0 1 0 0
+              children [
+                Inline {
+                  url "body_link.wrl"
+                }
+                 DEF gsensor AccelerationSensor {
+                    translation 0 0 0
+                    rotation 0 1 0 0 # rotation needed?
+                    sensorId 0
+                 }
+                 DEF gyrometer Gyro {
+                    translation 0 0 0
+                    rotation 0 1 0 0 # rotation needed?
+                    sensorId 0
+                 }
+              ]
+            }
+          ]
+        }
+
+        DEF head_pan Joint {
+          jointType "rotate"
+          jointAxis 0.0 0.0 1.0
+          jointId 1
+          translation -0.001 0.0 0.1365
+          rotation 0 1 0 0
+          ulimit 2.82743
+          llimit -2.82743
+          uvlimit 100.0
+          lvlimit -100.0
+          climit [1000.0]
+          gearRatio 353.5 # tmp
+          torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+          children [
+            DEF head_pan_link Segment {
+              mass 0.01176
+              centerOfMass 0.00233 0.0 0.00823
+              momentsOfInertia [3.97e-06 0.0 -3.1e-07 0.0 1.65e-06 0.0 -3.1e-07 0.0 3.87e-06]
+              children [
+                Transform {
+                  scale 0.001 0.001 0.001
+                  translation 0.0 0.0 0.0
+                  rotation 0 1 0 0
+                  children [
+                    Inline {
+                      url "head_pan_link.wrl"
+                    }
+                  ]
+                }
+              ]
+            }
+
+            DEF head_tilt Joint {
+              jointType "rotate"
+              jointAxis 0.0 -1.0 0.0
+              jointId 0
+              translation 0.01 0.019 0.0285
+              rotation 0 1 0 0
+              ulimit 2.82743
+              llimit -2.82743
+              uvlimit 100.0
+              lvlimit -100.0
+              climit [1000.0]
+              gearRatio 353.5 # tmp
+              torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+              children [
+                DEF head_tilt_link Segment {
+                  mass 0.13631
+                  centerOfMass 0.0023 -0.01863 0.0277
+                  momentsOfInertia [0.00010612 1.1e-07 -9.1e-06 1.1e-07 8.721e-05 8.4e-07 -9.1e-06 8.4e-07 4.529e-05]
+                  children [
+                    Transform {
+                      scale 0.001 0.001 0.001
+                      translation 0.0 0.0 0.0
+                      rotation 0 1 0 0
+                      children [
+                        Inline {
+                          url "head_tilt_link.wrl"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        DEF l_hip_yaw Joint {
+          jointType "rotate"
+          jointAxis 0.0 0.0 -1.0
+          jointId 7
+          translation 0.0 0.035 0.0
+          rotation 0 1 0 0
+          ulimit 2.82743
+          llimit -2.82743
+          uvlimit 100.0
+          lvlimit -100.0
+          climit [1000.0]
+          gearRatio 353.5 # tmp
+          torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+          children [
+            DEF l_hip_yaw_link Segment {
+              mass 0.01181
+              centerOfMass -0.00157 0.0 -0.00774
+              momentsOfInertia [1.51e-06 0.0 1e-08 0.0 4.3e-06 0.0 1e-08 0.0 4.12e-06]
+              children [
+                Transform {
+                  scale 0.001 0.001 0.001
+                  translation 0.0 0.0 0.0
+                  rotation 0 1 0 0
+                  children [
+                    Inline {
+                      url "l_hip_yaw_link.wrl"
+                    }
+                  ]
+                }
+              ]
+            }
+
+            DEF l_hip_roll Joint {
+              jointType "rotate"
+              jointAxis -1.0 0.0 0.0
+              jointId 6
+              translation -0.024 2.77555756156e-17 -0.0285
+              rotation 0 1 0 0
+              ulimit 2.82743
+              llimit -2.82743
+              uvlimit 100.0
+              lvlimit -100.0
+              climit [1000.0]
+              gearRatio 353.5 # tmp
+              torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A) 
+              children [
+                DEF l_hip_roll_link Segment {
+                  mass 0.17886
+                  centerOfMass 0.00388 0.00028 -0.01214
+                  momentsOfInertia [4.661e-05 -1.01e-06 -1.31e-06 -1.01e-06 0.00012523 -6e-08 -1.31e-06 -6e-08 0.00010857]
+                  children [
+                    Transform {
+                      scale 0.001 0.001 0.001
+                      translation 0.0 0.0 0.0
+                      rotation 0 1 0 0
+                      children [
+                        Inline {
+                          url "l_hip_roll_link.wrl"
+                        }
+                      ]
+                    }
+                  ]
+                }
+                    
+                DEF l_hip_pitch Joint {
+                  jointType "rotate"
+                  jointAxis 0.0 1.0 0.0
+                  jointId 5
+                  translation 0.0241 0.019 8.32667268469e-17
+                  rotation 0 1 0 0
+                  ulimit 2.82743
+                  llimit -2.82743
+                  uvlimit 100.0
+                  lvlimit -100.0
+                  climit [1000.0]
+                  gearRatio 353.5 # tmp
+                  torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+                  children [
+                    DEF l_hip_pitch_link Segment {
+                      mass 0.11543
+                      centerOfMass 0.00059 -0.01901 -0.08408
+                      momentsOfInertia [0.00010499 -1e-08 -7.1e-07 -1e-08 9.613e-05 3.53e-06 -7.1e-07 3.53e-06 2.493e-05]
+                      children [
+                        Transform {
+                          scale 0.001 0.001 0.001
+                          translation 0.0 0.0 0.0
+                          rotation 0 1 0 0
+                          children [
+                            Inline {
+                              url "l_hip_pitch_link.wrl"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                        
+                    DEF l_knee Joint {
+                      jointType "rotate"
+                      jointAxis 0.0 1.0 0.0
+                      jointId 4
+                      translation -1.35525271561e-20 -6.93889390391e-16 -0.11015
+                      rotation 0 1 0 0
+                      ulimit 2.82743
+                      llimit -2.82743
+                      uvlimit 100.0
+                      lvlimit -100.0
+                      climit [1000.0]
+                      gearRatio 353.5 # tmp
+                      torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+                      children [
+                        DEF l_knee_link Segment {
+                          mass 0.04015
+                          centerOfMass 0.0 -0.02151 -0.055
+                          momentsOfInertia [3.715e-05 0.0 0.0 0.0 2.751e-05 0.0 0.0 0.0 1.511e-05]
+                          children [
+                            Transform {
+                              scale 0.001 0.001 0.001
+                              translation 0.0 0.0 0.0
+                              rotation 0 1 0 0
+                              children [
+                                Inline {
+                                  url "l_knee_link.wrl"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                            
+                        DEF l_ank_pitch Joint {
+                          jointType "rotate"
+                          jointAxis 0.0 -1.0 0.0
+                          jointId 3
+                          translation -7.72494047896e-19 -4.23272528138e-16 -0.11
+                          rotation 0 1 0 0
+                          ulimit 2.82743
+                          llimit -2.82743
+                          uvlimit 100.0
+                          lvlimit -100.0
+                          climit [1000.0]
+                          gearRatio 353.5 # tmp
+                          torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+                          children [
+                            DEF l_ank_pitch_link Segment {
+                              mass 0.17886
+                              centerOfMass -0.02022 -0.01872 0.01214
+                              momentsOfInertia [4.661e-05 -1.01e-06 1.31e-06 -1.01e-06 0.00012523 6e-08 1.31e-06 6e-08 0.00010857]
+                              children [
+                                Transform {
+                                  scale 0.001 0.001 0.001
+                                  translation 0.0 0.0 0.0
+                                  rotation 0 1 0 0
+                                  children [
+                                    Inline {
+                                      url "l_ank_pitch_link.wrl"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                                
+                            DEF l_ank_roll Joint {
+                              jointType "rotate"
+                              jointAxis 1.0 0.0 0.0
+                              jointId 2
+                              translation -0.0241 -0.019 -2.77555756156e-17
+                              rotation 0 1 0 0
+                              ulimit 2.82743
+                              llimit -2.82743
+                              uvlimit 100.0
+                              lvlimit -100.0
+                              climit [1000.0]
+                              gearRatio 353.5 # tmp
+                              torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+                              children [
+                                DEF l_ank_roll_link Segment {
+                                  mass 0.06934
+                                  centerOfMass 0.02373 0.01037 -0.0276
+                                  momentsOfInertia [4.034e-05 -1.9e-07 1.2e-07 -1.9e-07 7.874e-05 1.01e-06 1.2e-07 1.01e-06 0.00011579]
+                                  children [
+                                    Transform {
+                                      scale 0.001 0.001 0.001
+                                      translation 0.0 0.0 0.0
+                                      rotation 0 1 0 0
+                                      children [
+                                        Inline {
+                                          url "l_ank_roll_link.wrl"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                                    
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        DEF l_sho_pitch Joint {
+          jointType "rotate"
+          jointAxis 0.0 1.0 0.0
+          jointId 10
+          translation -0.001 0.06 0.111
+          rotation 0 1 0 0
+          ulimit 2.82743
+          llimit -2.82743
+          uvlimit 100.0
+          lvlimit -100.0
+          climit [1000.0]
+          gearRatio 353.5 # tmp
+          torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+          children [
+            DEF l_sho_pitch_link Segment {
+              mass 0.01176
+              centerOfMass 0.0 0.00823 -0.00233
+              momentsOfInertia [1.65e-06 0.0 0.0 0.0 3.87e-06 3.1e-07 0.0 3.1e-07 3.97e-06]
+              children [
+                Transform {
+                  scale 0.001 0.001 0.001
+                  translation 0.0 0.0 0.0
+                  rotation 0 1 0 0
+                  children [
+                    Inline {
+                      url "l_sho_pitch_link.wrl"
+                    }
+                  ]
+                }
+              ]
+            }
+                
+            DEF l_sho_roll Joint {
+              jointType "rotate"
+              jointAxis -1.0 0.0 0.0
+              jointId 9
+              translation 0.019 0.0285 -0.01
+              rotation 0 1 0 0
+              ulimit 2.82743
+              llimit -2.82743
+              uvlimit 100.0
+              lvlimit -100.0
+              climit [1000.0]
+              gearRatio 353.5 # tmp
+              torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+              children [
+                DEF l_sho_roll_link Segment {
+                  mass 0.17758
+                  centerOfMass -0.01844 0.04514 0.00028
+                  momentsOfInertia [0.00022804 -1e-08 3e-08 -1e-08 3.042e-05 5.9e-07 3e-08 5.9e-07 0.00023474]
+                  children [
+                    Transform {
+                      scale 0.001 0.001 0.001
+                      translation 0.0 0.0 0.0
+                      rotation 0 1 0 0
+                      children [
+                        Inline {
+                          url "l_sho_roll_link.wrl"
+                        }
+                      ]
+                    }
+                  ]
+                }
+                    
+                DEF l_el Joint {
+                  jointType "rotate"
+                  jointAxis 1.0 0.0 0.0
+                  jointId 8
+                  translation -5.89805981832e-17 0.0904 -9.99999999996e-05
+                  rotation 0 1 0 0
+                  ulimit 2.82743
+                  llimit -2.82743
+                  uvlimit 100.0
+                  lvlimit -100.0
+                  climit [1000.0]
+                  gearRatio 353.5 # tmp
+                  torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+                  children [
+                    DEF l_el_link Segment {
+                      mass 0.04127
+                      centerOfMass -0.019 0.07033 0.0038
+                      momentsOfInertia [6.196e-05 0.0 0.0 0.0 1.231e-05 -3.72e-06 0.0 -3.72e-06 6.854e-05]
+                      children [
+                        Transform {
+                          scale 0.001 0.001 0.001
+                          translation 0.0 0.0 0.0
+                          rotation 0 1 0 0
+                          children [
+                            Inline {
+                              url "l_el_link.wrl"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                        
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        DEF r_hip_yaw Joint {
+          jointType "rotate"
+          jointAxis 0.0 0.0 -1.0
+          jointId 16
+          translation 0.0 -0.035 0.0
+          rotation 0 1 0 0
+          ulimit 2.82743
+          llimit -2.82743
+          uvlimit 100.0
+          lvlimit -100.0
+          climit [1000.0]
+          gearRatio 353.5 # tmp
+          torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+          children [
+            DEF r_hip_yaw_link Segment {
+              mass 0.01181
+              centerOfMass -0.00157 0.0 -0.00774
+              momentsOfInertia [1.51e-06 0.0 1e-08 0.0 4.3e-06 0.0 1e-08 0.0 4.12e-06]
+              children [
+                Transform {
+                  scale 0.001 0.001 0.001
+                  translation 0.0 0.0 0.0
+                  rotation 0 1 0 0
+                  children [
+                    Inline {
+                      url "r_hip_yaw_link.wrl"
+                    }
+                  ]
+                }
+              ]
+            }
+                
+            DEF r_hip_roll Joint {
+              jointType "rotate"
+              jointAxis -1.0 0.0 0.0
+              jointId 15
+              translation -0.024 -2.77555756156e-17 -0.0285
+              rotation 0 1 0 0
+              ulimit 2.82743
+              llimit -2.82743
+              uvlimit 100.0
+              lvlimit -100.0
+              climit [1000.0]
+              gearRatio 353.5 # tmp
+              torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+              children [
+                DEF r_hip_roll_link Segment {
+                  mass 0.17886
+                  centerOfMass 0.00388 -0.00028 -0.01214
+                  momentsOfInertia [4.661e-05 1.01e-06 -1.31e-06 1.01e-06 0.00012523 6e-08 -1.31e-06 6e-08 0.00010857]
+                  children [
+                    Transform {
+                      scale 0.001 0.001 0.001
+                      translation 0.0 0.0 0.0
+                      rotation 0 1 0 0
+                      children [
+                        Inline {
+                          url "r_hip_roll_link.wrl"
+                        }
+                      ]
+                    }
+                  ]
+                }
+                    
+                DEF r_hip_pitch Joint {
+                  jointType "rotate"
+                  jointAxis 0.0 -1.0 0.0
+                  jointId 14
+                  translation 0.0241 -0.019 -2.77555756156e-17
+                  rotation 0 1 0 0
+                  ulimit 2.82743
+                  llimit -2.82743
+                  uvlimit 100.0
+                  lvlimit -100.0
+                  climit [1000.0]
+                  gearRatio 353.5 # tmp
+                  torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+                  children [
+                    DEF r_hip_pitch_link Segment {
+                      mass 0.11543
+                      centerOfMass 0.00059 0.01901 -0.08408
+                      momentsOfInertia [0.00010499 1e-08 -7.1e-07 1e-08 9.613e-05 -3.53e-06 -7.1e-07 -3.53e-06 2.493e-05]
+                      children [
+                        Transform {
+                          scale 0.001 0.001 0.001
+                          translation 0.0 0.0 0.0
+                          rotation 0 1 0 0
+                          children [
+                            Inline {
+                              url "r_hip_pitch_link.wrl"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                        
+                    DEF r_knee Joint {
+                      jointType "rotate"
+                      jointAxis 0.0 -1.0 0.0
+                      jointId 13
+                      translation -1.35525271561e-20 7.42461647718e-16 -0.11015
+                      rotation 0 1 0 0
+                      ulimit 2.82743
+                      llimit -2.82743
+                      uvlimit 100.0
+                      lvlimit -100.0
+                      climit [1000.0]
+                      gearRatio 353.5 # tmp
+                      torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+                      children [
+                        DEF r_knee_link Segment {
+                          mass 0.04015
+                          centerOfMass 0.0 0.02151 -0.055
+                          momentsOfInertia [3.715e-05 0.0 0.0 0.0 2.751e-05 0.0 0.0 0.0 1.511e-05]
+                          children [
+                            Transform {
+                              scale 0.001 0.001 0.001
+                              translation 0.0 0.0 0.0
+                              rotation 0 1 0 0
+                              children [
+                                Inline {
+                                  url "r_knee_link.wrl"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                            
+                        DEF r_ank_pitch Joint {
+                          jointType "rotate"
+                          jointAxis 0.0 1.0 0.0
+                          jointId 12
+                          translation -7.72494047896e-19 4.23272528138e-16 -0.11
+                          rotation 0 1 0 0
+                          ulimit 2.82743
+                          llimit -2.82743
+                          uvlimit 100.0
+                          lvlimit -100.0
+                          climit [1000.0]
+                          gearRatio 353.5 # tmp
+                          torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+                          children [
+                            DEF r_ank_pitch_link Segment {
+                              mass 0.17886
+                              centerOfMass -0.02022 0.01872 0.01214
+                              momentsOfInertia [4.661e-05 1.01e-06 1.31e-06 1.01e-06 0.00012523 -6e-08 1.31e-06 -6e-08 0.00010857]
+                              children [
+                                Transform {
+                                  scale 0.001 0.001 0.001
+                                  translation 0.0 0.0 0.0
+                                  rotation 0 1 0 0
+                                  children [
+                                    Inline {
+                                      url "r_ank_pitch_link.wrl"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                                
+                            DEF r_ank_roll Joint {
+                              jointType "rotate"
+                              jointAxis 1.0 0.0 0.0
+                              jointId 11
+                              translation -0.0241 0.019 -2.77555756156e-17
+                              rotation 0 1 0 0
+                              ulimit 2.82743
+                              llimit -2.82743
+                              uvlimit 100.0
+                              lvlimit -100.0
+                              climit [1000.0]
+                              gearRatio 353.5 # tmp
+                              torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+                              children [
+                                DEF r_ank_roll_link Segment {
+                                  mass 0.06934
+                                  centerOfMass 0.02373 -0.01037 -0.0276
+                                  momentsOfInertia [4.034e-05 1.9e-07 1.2e-07 1.9e-07 7.874e-05 -1.01e-06 1.2e-07 -1.01e-06 0.00011579]
+                                  children [
+                                    Transform {
+                                      scale 0.001 0.001 0.001
+                                      translation 0.0 0.0 0.0
+                                      rotation 0 1 0 0
+                                      children [
+                                        Inline {
+                                          url "r_ank_roll_link.wrl"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                                    
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        DEF r_sho_pitch Joint {
+          jointType "rotate"
+          jointAxis 0.0 -1.0 0.0
+          jointId 19
+          translation -0.001 -0.06 0.111
+          rotation 0 1 0 0
+          ulimit 2.82743
+          llimit -2.82743
+          uvlimit 100.0
+          lvlimit -100.0
+          climit [1000.0]
+          gearRatio 353.5 # tmp
+          torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+          children [
+            DEF r_sho_pitch_link Segment {
+              mass 0.01176
+              centerOfMass 0.0 -0.00823 -0.00233
+              momentsOfInertia [1.65e-06 0.0 0.0 0.0 3.87e-06 -3.1e-07 0.0 -3.1e-07 3.97e-06]
+              children [
+                Transform {
+                  scale 0.001 0.001 0.001
+                  translation 0.0 0.0 0.0
+                  rotation 0 1 0 0
+                  children [
+                    Inline {
+                      url "r_sho_pitch_link.wrl"
+                    }
+                  ]
+                }
+              ]
+            }
+                
+            DEF r_sho_roll Joint {
+              jointType "rotate"
+              jointAxis -1.0 0.0 0.0
+              jointId 18
+              translation 0.019 -0.0285 -0.01
+              rotation 0 1 0 0
+              ulimit 2.82743
+              llimit -2.82743
+              uvlimit 100.0
+              lvlimit -100.0
+              climit [1000.0]
+              gearRatio 353.5 # tmp
+              torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+              children [
+                DEF r_sho_roll_link Segment {
+                  mass 0.17758
+                  centerOfMass -0.01844 -0.04514 0.00028
+                  momentsOfInertia [0.00022804 1e-08 3e-08 1e-08 3.042e-05 -5.9e-07 3e-08 -5.9e-07 0.00023474]
+                  children [
+                    Transform {
+                      scale 0.001 0.001 0.001
+                      translation 0.0 0.0 0.0
+                      rotation 0 1 0 0
+                      children [
+                        Inline {
+                          url "r_sho_roll_link.wrl"
+                        }
+                      ]
+                    }
+                  ]
+                }
+                    
+                DEF r_el Joint {
+                  jointType "rotate"
+                  jointAxis 1.0 0.0 0.0
+                  jointId 17
+                  translation -5.89805981832e-17 -0.0904 -9.99999999996e-05
+                  rotation 0 1 0 0
+                  ulimit 2.82743
+                  llimit -2.82743
+                  uvlimit 100.0
+                  lvlimit -100.0
+                  climit [1000.0]
+                  gearRatio 353.5 # tmp
+                  torqueConst 1.7826 # tmp stall torque 4.1 (N-m) / 2.3 (A)
+                  children [
+                    DEF r_el_link Segment {
+                      mass 0.04127
+                      centerOfMass -0.019 -0.07033 0.0038
+                      momentsOfInertia [6.196e-05 0.0 0.0 0.0 1.231e-05 3.72e-06 0.0 3.72e-06 6.854e-05]
+                      children [
+                        Transform {
+                          scale 0.001 0.001 0.001
+                          translation 0.0 0.0 0.0
+                          rotation 0 1 0 0
+                          children [
+                            Inline {
+                              url "r_el_link.wrl"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                        
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  joints [
+    USE body_link,
+    USE head_tilt,
+    USE head_pan,
+    USE l_ank_roll,
+    USE l_ank_pitch,
+    USE l_knee,
+    USE l_hip_pitch,
+    USE l_hip_roll,
+    USE l_hip_yaw,
+    USE l_el,
+    USE l_sho_roll,
+    USE l_sho_pitch,
+    USE r_ank_roll,
+    USE r_ank_pitch,
+    USE r_knee,
+    USE r_hip_pitch,
+    USE r_hip_roll,
+    USE r_hip_yaw,
+    USE r_el,
+    USE r_sho_roll,
+    USE r_sho_pitch
+  ]
+  segments [
+    USE body_link,
+    USE head_tilt_link,
+    USE head_pan_link,
+    USE l_ank_roll_link,
+    USE l_ank_pitch_link,
+    USE l_knee_link,
+    USE l_hip_pitch_link,
+    USE l_hip_roll_link,
+    USE l_hip_yaw_link,
+    USE l_el_link,
+    USE l_sho_roll_link,
+    USE l_sho_pitch_link,
+    USE r_ank_roll_link,
+    USE r_ank_pitch_link,
+    USE r_knee_link,
+    USE r_hip_pitch_link,
+    USE r_hip_roll_link,
+    USE r_hip_yaw_link,
+    USE r_el_link,
+    USE r_sho_roll_link,
+    USE r_sho_pitch_link
+  ]
+  name "OP3"
+  version "1.0"
+}
