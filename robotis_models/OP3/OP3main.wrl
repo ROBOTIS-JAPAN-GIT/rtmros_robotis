@@ -155,7 +155,7 @@ DEF OP3 Humanoid {
   humanoidBody [
     DEF body Joint { # replace with WAIST...?
       jointType "free"
-      translation 0.0 0.0 0.025 # height from the ground (tmp value)
+      translation 0.0 0.0 0.25 # height from the ground (tmp value)
       rotation 0 1 0 0
       children [
         DEF body_link Segment {
