@@ -869,7 +869,7 @@ DEF OP3 Humanoid {
     }
   ]
   joints [
-    USE body_link,
+    USE body,
     USE head_tilt,
     USE head_pan,
     USE l_ank_roll,
