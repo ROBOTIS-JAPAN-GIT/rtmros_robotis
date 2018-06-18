@@ -173,12 +173,12 @@ DEF OP3 Humanoid {
                 }
                  DEF gsensor AccelerationSensor {
                     translation 0 0 0
-                    rotation 0 1 0 0 # rotation needed?
+                    rotation 1 0 0 0 # rotation needed?
                     sensorId 0
                  }
                  DEF gyrometer Gyro {
                     translation 0 0 0
-                    rotation 0 1 0 0 # rotation needed?
+                    rotation 1 0 0 0 # rotation needed?
                     sensorId 0
                  }
               ]
