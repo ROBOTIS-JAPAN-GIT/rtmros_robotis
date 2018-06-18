@@ -153,7 +153,7 @@ PROTO AccelerationSensor [ # Added from JAXONmain.wrl
 
 DEF OP3 Humanoid {
   humanoidBody [
-    DEF body_link Joint { # replace with WAIST...?
+    DEF body Joint { # replace with WAIST...?
       jointType "free"
       translation 0.0 0.0 0.025 # height from the ground (tmp value)
       rotation 0 1 0 0
