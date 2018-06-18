@@ -11,7 +11,7 @@ class OP3HrpsysConfigurator(HrpsysConfigurator):
     def getRTCList (self):
         return self.getRTCListUnstable()
     # def init (self, robotname="OP3", url=""):
-    def init (self, robotname="body_link", url=""):
+    def init (self, robotname="OP3", url=""):
         HrpsysConfigurator.init(self, robotname, url)
         print "initialize rtc parameters"
         self.setStAbcParameters()
