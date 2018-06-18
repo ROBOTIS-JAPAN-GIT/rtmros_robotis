@@ -171,18 +171,18 @@ DEF OP3 Humanoid {
                 Inline {
                   url "body_link.wrl"
                 }
-                 DEF gsensor AccelerationSensor {
-                    translation 0 0 0
-                    rotation 1 0 0 0 # rotation needed?
-                    sensorId 0
-                 }
-                 DEF gyrometer Gyro {
-                    translation 0 0 0
-                    rotation 1 0 0 0 # rotation needed?
-                    sensorId 0
-                 }
               ]
             }
+           DEF gsensor AccelerationSensor {
+            translation 0 0 0
+            rotation 1 0 0 0 # rotation needed?
+              sensorId 0
+           }
+           DEF gyrometer Gyro {
+              translation 0 0 0
+              rotation 1 0 0 0 # rotation needed?
+              sensorId 0
+           }
           ]
         }
 
