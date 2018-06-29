@@ -71,7 +71,7 @@ compile_robotis_model_for_robotis_robots(OP3 OP3 OP3
   --conf-dt-option "0.008"
   --simulation-timestep-option "0.008"
   --conf-file-option "abc_leg_offset: 0.0, 0.020, 0.0"
-  --conf-file-option "end_effectors: rleg,r_ank_roll,body,0.0,-0.01,-0.115,0.0,0.0,0.0,0.0, lleg,l_ank_roll,body,0.0,-0.01,-0.115,0.0,0.0,0.0,0.0, rarm,r_el,body,0.0,0.0169,-0.174, larm,l_el,body,0.0,-0.0169,-0.174"
+  --conf-file-option "end_effectors: rleg,r_ank_roll,body,0.0,-0.01,-0.115,0.0,0.0,0.0,0.0, lleg,l_ank_roll,body,0.0,-0.01,-0.115,0.0,0.0,0.0,0.0, rarm,r_el,body,0.0,0.0169,-0.174,0.0,0.0,0.0,0.0, larm,l_el,body,0.0,-0.0169,-0.174,0.0,0.0,0.0,0.0"
   --conf-file-option "collision_loop: 20"
   --conf-file-option "# in progress... "
   --conf-file-option "collision_pair: body:l_hip_pitch body:r_hip_pitch l_hip_roll:l_ank_roll l_hip_roll:r_hip_roll l_hip_roll:r_knee l_hip_roll:r_ank_roll l_knee:r_hip_roll l_knee:r_knee l_knee:r_ank_roll l_ank_roll:r_hip_roll l_ank_roll:r_knee l_ank_roll:r_ank_roll r_hip_roll:r_ank_roll head_tilt:l_el head_tilt:r_el"
