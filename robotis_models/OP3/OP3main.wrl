@@ -155,8 +155,9 @@ DEF OP3 Humanoid {
   humanoidBody [
     DEF body Joint { # replace with WAIST...?
       jointType "free"
+      jointAxis 0 0 0
       translation 0.0 0.0 0.25 # height from the ground (tmp value)
-      rotation 0 1 0 0
+      # rotation 0 1 0 0
       children [
         DEF body_link Segment {
           mass 1.34928
@@ -166,7 +167,7 @@ DEF OP3 Humanoid {
             Transform {
               scale 0.001 0.001 0.001
               translation 0.0 0.0 0.0
-              rotation 0 1 0 0
+              # rotation 0 1 0 0
               children [
                 Inline {
                   url "body_link.wrl"
@@ -175,12 +176,12 @@ DEF OP3 Humanoid {
             }
            DEF gsensor AccelerationSensor {
             translation 0 0 0
-            rotation 1 0 0 0 # rotation needed?
+            rotation 0 0 1 0 # rotation needed?
               sensorId 0
            }
            DEF gyrometer Gyro {
               translation 0 0 0
-              rotation 1 0 0 0 # rotation needed?
+              rotation 0 0 1 0 # rotation needed?
               sensorId 0
            }
           ]
@@ -191,7 +192,7 @@ DEF OP3 Humanoid {
           jointAxis 0.0 0.0 1.0
           jointId 1
           translation -0.001 0.0 0.1365
-          rotation 0 1 0 0
+          # rotation 0 1 0 0
           ulimit 2.82743
           llimit -2.82743
           uvlimit 100.0
@@ -208,7 +209,7 @@ DEF OP3 Humanoid {
                 Transform {
                   scale 0.001 0.001 0.001
                   translation 0.0 0.0 0.0
-                  rotation 0 1 0 0
+                  # rotation 0 1 0 0
                   children [
                     Inline {
                       url "head_pan_link.wrl"
@@ -223,7 +224,7 @@ DEF OP3 Humanoid {
               jointAxis 0.0 -1.0 0.0
               jointId 0
               translation 0.01 0.019 0.0285
-              rotation 0 1 0 0
+              # rotation 0 1 0 0
               ulimit 2.82743
               llimit -2.82743
               uvlimit 100.0
@@ -240,7 +241,7 @@ DEF OP3 Humanoid {
                     Transform {
                       scale 0.001 0.001 0.001
                       translation 0.0 0.0 0.0
-                      rotation 0 1 0 0
+                      # rotation 0 1 0 0
                       children [
                         Inline {
                           url "head_tilt_link.wrl"
@@ -258,7 +259,7 @@ DEF OP3 Humanoid {
           jointAxis 0.0 0.0 -1.0
           jointId 7
           translation 0.0 0.035 0.0
-          rotation 0 1 0 0
+          # rotation 0 1 0 0
           ulimit 2.82743
           llimit -2.82743
           uvlimit 100.0
@@ -275,7 +276,7 @@ DEF OP3 Humanoid {
                 Transform {
                   scale 0.001 0.001 0.001
                   translation 0.0 0.0 0.0
-                  rotation 0 1 0 0
+                  # rotation 0 1 0 0
                   children [
                     Inline {
                       url "l_hip_yaw_link.wrl"
@@ -290,7 +291,7 @@ DEF OP3 Humanoid {
               jointAxis -1.0 0.0 0.0
               jointId 6
               translation -0.024 2.77555756156e-17 -0.0285
-              rotation 0 1 0 0
+              # rotation 0 1 0 0
               ulimit 2.82743
               llimit -2.82743
               uvlimit 100.0
@@ -307,7 +308,7 @@ DEF OP3 Humanoid {
                     Transform {
                       scale 0.001 0.001 0.001
                       translation 0.0 0.0 0.0
-                      rotation 0 1 0 0
+                      # rotation 0 1 0 0
                       children [
                         Inline {
                           url "l_hip_roll_link.wrl"
@@ -322,7 +323,7 @@ DEF OP3 Humanoid {
                   jointAxis 0.0 1.0 0.0
                   jointId 5
                   translation 0.0241 0.019 8.32667268469e-17
-                  rotation 0 1 0 0
+                  # rotation 0 1 0 0
                   ulimit 2.82743
                   llimit -2.82743
                   uvlimit 100.0
@@ -339,7 +340,7 @@ DEF OP3 Humanoid {
                         Transform {
                           scale 0.001 0.001 0.001
                           translation 0.0 0.0 0.0
-                          rotation 0 1 0 0
+                          # rotation 0 1 0 0
                           children [
                             Inline {
                               url "l_hip_pitch_link.wrl"
@@ -354,7 +355,7 @@ DEF OP3 Humanoid {
                       jointAxis 0.0 1.0 0.0
                       jointId 4
                       translation -1.35525271561e-20 -6.93889390391e-16 -0.11015
-                      rotation 0 1 0 0
+                      # rotation 0 1 0 0
                       ulimit 2.82743
                       llimit -2.82743
                       uvlimit 100.0
@@ -371,7 +372,7 @@ DEF OP3 Humanoid {
                             Transform {
                               scale 0.001 0.001 0.001
                               translation 0.0 0.0 0.0
-                              rotation 0 1 0 0
+                              # rotation 0 1 0 0
                               children [
                                 Inline {
                                   url "l_knee_link.wrl"
@@ -386,7 +387,7 @@ DEF OP3 Humanoid {
                           jointAxis 0.0 -1.0 0.0
                           jointId 3
                           translation -7.72494047896e-19 -4.23272528138e-16 -0.11
-                          rotation 0 1 0 0
+                          # rotation 0 1 0 0
                           ulimit 2.82743
                           llimit -2.82743
                           uvlimit 100.0
@@ -403,7 +404,7 @@ DEF OP3 Humanoid {
                                 Transform {
                                   scale 0.001 0.001 0.001
                                   translation 0.0 0.0 0.0
-                                  rotation 0 1 0 0
+                                  # rotation 0 1 0 0
                                   children [
                                     Inline {
                                       url "l_ank_pitch_link.wrl"
@@ -418,7 +419,7 @@ DEF OP3 Humanoid {
                               jointAxis 1.0 0.0 0.0
                               jointId 2
                               translation -0.0241 -0.019 -2.77555756156e-17
-                              rotation 0 1 0 0
+                              # rotation 0 1 0 0
                               ulimit 2.82743
                               llimit -2.82743
                               uvlimit 100.0
@@ -435,7 +436,7 @@ DEF OP3 Humanoid {
                                     Transform {
                                       scale 0.001 0.001 0.001
                                       translation 0.0 0.0 0.0
-                                      rotation 0 1 0 0
+                                      # rotation 0 1 0 0
                                       children [
                                         Inline {
                                           url "l_ank_roll_link.wrl"
@@ -462,7 +463,7 @@ DEF OP3 Humanoid {
           jointAxis 0.0 1.0 0.0
           jointId 10
           translation -0.001 0.06 0.111
-          rotation 0 1 0 0
+          # rotation 0 1 0 0
           ulimit 2.82743
           llimit -2.82743
           uvlimit 100.0
@@ -479,7 +480,7 @@ DEF OP3 Humanoid {
                 Transform {
                   scale 0.001 0.001 0.001
                   translation 0.0 0.0 0.0
-                  rotation 0 1 0 0
+                  # rotation 0 1 0 0
                   children [
                     Inline {
                       url "l_sho_pitch_link.wrl"
@@ -494,7 +495,7 @@ DEF OP3 Humanoid {
               jointAxis -1.0 0.0 0.0
               jointId 9
               translation 0.019 0.0285 -0.01
-              rotation 0 1 0 0
+              # rotation 0 1 0 0
               ulimit 2.82743
               llimit -2.82743
               uvlimit 100.0
@@ -511,7 +512,7 @@ DEF OP3 Humanoid {
                     Transform {
                       scale 0.001 0.001 0.001
                       translation 0.0 0.0 0.0
-                      rotation 0 1 0 0
+                      # rotation 0 1 0 0
                       children [
                         Inline {
                           url "l_sho_roll_link.wrl"
@@ -526,7 +527,7 @@ DEF OP3 Humanoid {
                   jointAxis 1.0 0.0 0.0
                   jointId 8
                   translation -5.89805981832e-17 0.0904 -9.99999999996e-05
-                  rotation 0 1 0 0
+                  # rotation 0 1 0 0
                   ulimit 2.82743
                   llimit -2.82743
                   uvlimit 100.0
@@ -543,7 +544,7 @@ DEF OP3 Humanoid {
                         Transform {
                           scale 0.001 0.001 0.001
                           translation 0.0 0.0 0.0
-                          rotation 0 1 0 0
+                          # rotation 0 1 0 0
                           children [
                             Inline {
                               url "l_el_link.wrl"
@@ -564,7 +565,7 @@ DEF OP3 Humanoid {
           jointAxis 0.0 0.0 -1.0
           jointId 16
           translation 0.0 -0.035 0.0
-          rotation 0 1 0 0
+          # rotation 0 1 0 0
           ulimit 2.82743
           llimit -2.82743
           uvlimit 100.0
@@ -581,7 +582,7 @@ DEF OP3 Humanoid {
                 Transform {
                   scale 0.001 0.001 0.001
                   translation 0.0 0.0 0.0
-                  rotation 0 1 0 0
+                  # rotation 0 1 0 0
                   children [
                     Inline {
                       url "r_hip_yaw_link.wrl"
@@ -596,7 +597,7 @@ DEF OP3 Humanoid {
               jointAxis -1.0 0.0 0.0
               jointId 15
               translation -0.024 -2.77555756156e-17 -0.0285
-              rotation 0 1 0 0
+              # rotation 0 1 0 0
               ulimit 2.82743
               llimit -2.82743
               uvlimit 100.0
@@ -613,7 +614,7 @@ DEF OP3 Humanoid {
                     Transform {
                       scale 0.001 0.001 0.001
                       translation 0.0 0.0 0.0
-                      rotation 0 1 0 0
+                      # rotation 0 1 0 0
                       children [
                         Inline {
                           url "r_hip_roll_link.wrl"
@@ -628,7 +629,7 @@ DEF OP3 Humanoid {
                   jointAxis 0.0 -1.0 0.0
                   jointId 14
                   translation 0.0241 -0.019 -2.77555756156e-17
-                  rotation 0 1 0 0
+                  # rotation 0 1 0 0
                   ulimit 2.82743
                   llimit -2.82743
                   uvlimit 100.0
@@ -645,7 +646,7 @@ DEF OP3 Humanoid {
                         Transform {
                           scale 0.001 0.001 0.001
                           translation 0.0 0.0 0.0
-                          rotation 0 1 0 0
+                          # rotation 0 1 0 0
                           children [
                             Inline {
                               url "r_hip_pitch_link.wrl"
@@ -660,7 +661,7 @@ DEF OP3 Humanoid {
                       jointAxis 0.0 -1.0 0.0
                       jointId 13
                       translation -1.35525271561e-20 7.42461647718e-16 -0.11015
-                      rotation 0 1 0 0
+                      # rotation 0 1 0 0
                       ulimit 2.82743
                       llimit -2.82743
                       uvlimit 100.0
@@ -677,7 +678,7 @@ DEF OP3 Humanoid {
                             Transform {
                               scale 0.001 0.001 0.001
                               translation 0.0 0.0 0.0
-                              rotation 0 1 0 0
+                              # rotation 0 1 0 0
                               children [
                                 Inline {
                                   url "r_knee_link.wrl"
@@ -692,7 +693,7 @@ DEF OP3 Humanoid {
                           jointAxis 0.0 1.0 0.0
                           jointId 12
                           translation -7.72494047896e-19 4.23272528138e-16 -0.11
-                          rotation 0 1 0 0
+                          # rotation 0 1 0 0
                           ulimit 2.82743
                           llimit -2.82743
                           uvlimit 100.0
@@ -709,7 +710,7 @@ DEF OP3 Humanoid {
                                 Transform {
                                   scale 0.001 0.001 0.001
                                   translation 0.0 0.0 0.0
-                                  rotation 0 1 0 0
+                                  # rotation 0 1 0 0
                                   children [
                                     Inline {
                                       url "r_ank_pitch_link.wrl"
@@ -724,7 +725,7 @@ DEF OP3 Humanoid {
                               jointAxis 1.0 0.0 0.0
                               jointId 11
                               translation -0.0241 0.019 -2.77555756156e-17
-                              rotation 0 1 0 0
+                              # rotation 0 1 0 0
                               ulimit 2.82743
                               llimit -2.82743
                               uvlimit 100.0
@@ -741,7 +742,7 @@ DEF OP3 Humanoid {
                                     Transform {
                                       scale 0.001 0.001 0.001
                                       translation 0.0 0.0 0.0
-                                      rotation 0 1 0 0
+                                      # rotation 0 1 0 0
                                       children [
                                         Inline {
                                           url "r_ank_roll_link.wrl"
@@ -768,7 +769,7 @@ DEF OP3 Humanoid {
           jointAxis 0.0 -1.0 0.0
           jointId 19
           translation -0.001 -0.06 0.111
-          rotation 0 1 0 0
+          # rotation 0 1 0 0
           ulimit 2.82743
           llimit -2.82743
           uvlimit 100.0
@@ -785,7 +786,7 @@ DEF OP3 Humanoid {
                 Transform {
                   scale 0.001 0.001 0.001
                   translation 0.0 0.0 0.0
-                  rotation 0 1 0 0
+                  # rotation 0 1 0 0
                   children [
                     Inline {
                       url "r_sho_pitch_link.wrl"
@@ -800,7 +801,7 @@ DEF OP3 Humanoid {
               jointAxis -1.0 0.0 0.0
               jointId 18
               translation 0.019 -0.0285 -0.01
-              rotation 0 1 0 0
+              # rotation 0 1 0 0
               ulimit 2.82743
               llimit -2.82743
               uvlimit 100.0
@@ -817,7 +818,7 @@ DEF OP3 Humanoid {
                     Transform {
                       scale 0.001 0.001 0.001
                       translation 0.0 0.0 0.0
-                      rotation 0 1 0 0
+                      # rotation 0 1 0 0
                       children [
                         Inline {
                           url "r_sho_roll_link.wrl"
@@ -832,7 +833,7 @@ DEF OP3 Humanoid {
                   jointAxis 1.0 0.0 0.0
                   jointId 17
                   translation -5.89805981832e-17 -0.0904 -9.99999999996e-05
-                  rotation 0 1 0 0
+                  # rotation 0 1 0 0
                   ulimit 2.82743
                   llimit -2.82743
                   uvlimit 100.0
@@ -849,7 +850,7 @@ DEF OP3 Humanoid {
                         Transform {
                           scale 0.001 0.001 0.001
                           translation 0.0 0.0 0.0
-                          rotation 0 1 0 0
+                          # rotation 0 1 0 0
                           children [
                             Inline {
                               url "r_el_link.wrl"
